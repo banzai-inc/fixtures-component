@@ -6,8 +6,8 @@
             [clojure.java.jdbc :refer [query delete!]]))
 
 (def store {:spec (-> (user/load-config) :datastore :db-spec)})
-(def data [[:users [{:id 1}
-                    {:id 2}]]])
+(def data [[:users [{:id 1} {:id 2}]]])
+(def error-data [[:non_existent_table [{:id 1}]]])
 
 (defn clear [spec]
   (delete! spec :users []))
@@ -25,3 +25,7 @@
     (load! adapter store data)
     (unload! adapter store data)
     (= 0 (count (query (:spec store) ["select * from users"])))))
+
+(deftest error-test
+  (load! (jdbc-adapter) store error-data)
+  (unload! (jdbc-adapter) store error-data))
