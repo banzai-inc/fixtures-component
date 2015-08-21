@@ -67,7 +67,7 @@ An adapter is no more than an implementation of the `fixtures.protocols.Loadable
   (unload! [adapter store data]))
 ```
 
-Implement your own adapter with the two methods, and you're set. See [here for a full example](https://github.com/banzai-inc/fixtures-component/blob/master/src/fixtures/adapters/jdbc.clj).
+Implement your own adapter with the two methods, and you're set:
 
 ```clojure
 (require '[fixtures.protocols :as p])
@@ -80,6 +80,8 @@ Implement your own adapter with the two methods, and you're set. See [here for a
   (unload! [adapter store data]
     ...))
 ```
+
+See [here for a full example](https://github.com/banzai-inc/fixtures-component/blob/master/src/fixtures/adapters/jdbc.clj).
 
 ### 2) Basic Setup and Teardown
 
