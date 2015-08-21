@@ -2,6 +2,10 @@
 
 Clojure library for loading and tearing down fixtures within a [component-based app](https://github.com/stuartsierra/component).
 
+## Lein Installation
+
+`[fixtures-component "0.2.1"]`
+
 ## Usage
 
 Because we're dealing with fixtures – sample data – it's assumed you'll be applying them to either a development or test system.
