@@ -55,7 +55,7 @@ Finally, we need to add our component to the system map, including our datastore
               [:store]}))
 ```
 
-Make sure your `fixtures` component is passed the datastore in the `:store` key. When you start your system, all your data should be bootstrapped into the database.
+**That's it!** Your done. Make sure your `fixtures` component is passed the datastore in the `:store` key. When you start your system, all your data should be bootstrapped into the database.
 
 #### Build Your Own Adapter
 
