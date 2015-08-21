@@ -12,8 +12,8 @@ Because we're dealing with fixtures – sample data – it's assumed you'll be a
 
 There are two ways to use `fixtures-component`:
 
-1) A fixtures adapter, tailored for your database, or
-2) A plain-jane, custom `setup` function.
+1. Using a fixtures adapter, tailored for your database, or
+2. Using a plain-jane, custom `setup` function.
 
 A JDBC adapter comes built-in for method #1.
 
