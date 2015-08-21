@@ -10,7 +10,12 @@ Clojure library for loading and tearing down fixtures within a [component-based 
 
 Because we're dealing with fixtures – sample data – it's assumed you'll be applying them to either a development or test system.
 
-There are two ways to use `fixtures-component`: 1) with a fixtures adapter, tailored for your database, or 2) a plain-jane, custom `setup` function. A JDBC adapter comes built-in.
+There are two ways to use `fixtures-component`:
+
+1) A fixtures adapter, tailored for your database, or
+2) A plain-jane, custom `setup` function.
+
+A JDBC adapter comes built-in for method #1.
 
 ### 1) Using an Adapter
 
