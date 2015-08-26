@@ -1,4 +1,4 @@
-(defproject fixtures-component "0.2.1"
+(defproject xzilend/fixtures-component "0.2.1"
   :description "Development fixtures component for the reloadable pattern"
   :url "https://github.com/banzai-inc/fixtures-component"
   :license {:name "Eclipse Public License"
