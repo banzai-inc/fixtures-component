@@ -44,7 +44,7 @@ Our table suggests we have two SQL tables named "users" and "phones", each with 
                         :data data}})
 ```
 
-Finally, we need to add our component to the system map, including our datadb as a dependency:
+Finally, we need to add our component to the system map, including our datastore as a dependency:
 
 ```clojure
 (require '[fixtures.component :refer [fixtures]])
