@@ -5,7 +5,7 @@
             [fixtures.adapters.jdbc :refer [jdbc-adapter]]
             [clojure.java.jdbc :refer [query delete!]]))
 
-(def store {:spec (-> (user/load-config) :datastore :db-spec)})
+(def db {:spec (-> (user/load-config) :datastore :db-spec)})
 (def data [[:users [{:id 1} {:id 2}]]])
 (def error-data [[:non_existent_table [{:id 1}]]])
 
@@ -13,19 +13,19 @@
   (delete! spec :users []))
 
 (deftest load-test
-  (let [spec (:spec store)]
+  (let [spec (:spec db)]
     (clear spec)
-    (load! (jdbc-adapter) store data)
-    (= 2 (count (query (:spec store) ["select * from users"])))))
+    (load! (jdbc-adapter) db data)
+    (= 2 (count (query (:spec db) ["select * from users"])))))
 
 (deftest unload-test
-  (let [spec (:spec store)
+  (let [spec (:spec db)
         adapter (jdbc-adapter)]
     (clear spec)
-    (load! adapter store data)
-    (unload! adapter store data)
-    (= 0 (count (query (:spec store) ["select * from users"])))))
+    (load! adapter db data)
+    (unload! adapter db data)
+    (= 0 (count (query (:spec db) ["select * from users"])))))
 
 (deftest error-test
-  (load! (jdbc-adapter) store error-data)
-  (unload! (jdbc-adapter) store error-data))
+  (load! (jdbc-adapter) db error-data)
+  (unload! (jdbc-adapter) db error-data))

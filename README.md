@@ -44,18 +44,18 @@ Our table suggests we have two SQL tables named "users" and "phones", each with 
                         :data data}})
 ```
 
-Finally, we need to add our component to the system map, including our datastore as a dependency:
+Finally, we need to add our component to the system map, including our datadb as a dependency:
 
 ```clojure
 (require '[fixtures.component :refer [fixtures]])
  
 (system-map
-  :store (...)
+  :db (...)
   :fixtures (c/using (fixtures (:fixtures config))
-              [:store]}))
+              [:db]}))
 ```
 
-**That's it!** Your done. Make sure your `fixtures` component is passed the datastore in the `:store` key. When you start your system, all your data should be bootstrapped into the database.
+**That's it!** Your done. Make sure your `fixtures` component is passed the datastore in the `:db` key. When you start your system, all your data should be bootstrapped into the database.
 
 #### Build Your Own Adapter
 
@@ -63,8 +63,8 @@ An adapter is no more than an implementation of the `fixtures.protocols.Loadable
 
 ```clojure
 (defprotocol Loadable
-  (load! [adapter store data])
-  (unload! [adapter store data]))
+  (load! [adapter db data])
+  (unload! [adapter db data]))
 ```
 
 Implement your own adapter with the two methods, and you're set:
@@ -72,12 +72,12 @@ Implement your own adapter with the two methods, and you're set:
 ```clojure
 (require '[fixtures.protocols :as p])
 
-(defrecord MyFavoriteDatastore
+(defrecord MyFavoriteDataStore
   fixtures.protocols.Loadable
-  (load! [adapter store data]
+  (load! [adapter db data]
     ...)
 
-  (unload! [adapter store data]
+  (unload! [adapter db data]
     ...))
 ```
 
@@ -87,16 +87,16 @@ See [here for a full example](https://github.com/banzai-inc/fixtures-component/b
 
 Leveraging an adapter is the preferred method for loading fixtures, however, if you're in a hurry, these two functions provide a quick and dirty way load your datastore.
 
-This method does one thing only – ensures setup and teardown is done in sync with the rest of the system. It's *totally* naive to *how* you load your fixtures. Whether you're loading a SQL, NoSQL, Postgres, or MySQL store, it's your responsibility to define setup and teardown procedures.
+This method does one thing only – ensures setup and teardown is done in sync with the rest of the system. It's *totally* naive to *how* you load your fixtures. Whether you're loading a SQL, NoSQL, Postgres, or MySQL db, it's your responsibility to define setup and teardown procedures.
 
 First, define two functions: `setup`, and `teardown`, each capable of receiving one argument representing your database:
 
 ```clojure
-(defn setup [store]
+(defn setup [db]
   (println "Setting up fixtures!")
   (comment "Do your thing: add records to your database using yesql, plain JDBC, whatever..."))
 
-(defn teardown [store]
+(defn teardown [db]
   (println "Tearing down fixtures")
   (comment "Delete your data"))
 ```
@@ -108,15 +108,15 @@ Add your `setup` and `teardown` functions to a config map, explicitly setting th
                         :teardown teardown}}
 ```
 
-Keep in mind, you cannot mix method #1 and #2, so don't declare `setup` and `adapter`, or `setup` and `data`. Declare your db component, and pass it as a dependency to the constructor function, `fixtures`, using the `store` key.
+Keep in mind, you cannot mix method #1 and #2, so don't declare `setup` and `adapter`, or `setup` and `data`. Declare your db component, and pass it as a dependency to the constructor function, `fixtures`, using the `db` key.
 
 ```clojure
 (require '[com.stuartsierra.component :as c])
 
 (c/system-map
-  :store (...)
+  :db (...)
   :fixtures (c/using (fixtures (:fixtures config)))
-              [:store])
+              [:db])
 ```
 
 ## License
