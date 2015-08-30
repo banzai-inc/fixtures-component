@@ -7,8 +7,7 @@
             "rollback" ["run" "-m" "user/rollback"]}
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [com.stuartsierra/component "0.2.3"]
-                 [org.clojure/java.jdbc "0.4.1"]
-                 [org.clojure/tools.logging "0.3.1"]]
+                 [org.clojure/java.jdbc "0.4.1"]]
   :profiles {:dev {:source-paths ["dev"]
                    :repl-options {:init-ns user}
                    :resource-paths ["dev/resources"]   
