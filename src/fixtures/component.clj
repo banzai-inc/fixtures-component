@@ -16,7 +16,8 @@
       (if adapter
         (unload! (adapter) db data)
         (teardown db)))
-    (assoc component :loaded false)))
+    (-> (assoc component :loaded false)
+        (dissoc :setup :teardown :adapter :data))))
 
 (defn fixtures
   "Creates a Fixtures component. Config options include:

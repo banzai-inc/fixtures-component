@@ -10,7 +10,7 @@
 
 (defn- unload* [spec data]
   (try
-    (doseq [[table _] data]
+    (doseq [[table _] (reverse data)]
       (clear-table! spec table))
     (catch Exception e
       (println (.getMessage e)))))
