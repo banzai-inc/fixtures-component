@@ -1,21 +1,17 @@
 (ns fixtures.component
   (:require [com.stuartsierra.component :as c]
-            [fixtures.protocols :refer [load! unload!]]))
+            [fixtures.core :as f]))
+
+;; NOTE: Untested since version 0.4.0
 
 (defrecord Fixtures [setup teardown adapter data]
   c/Lifecycle
   (start [component]
-    (let [db (:db component)]
-      (if adapter
-        (load! (adapter) db data)
-        (setup db)))
+    (f/start (:db component) data {:adapter adapter :setup setup})
     (assoc component :loaded true))
 
   (stop [component]
-    (let [db (:db component)]
-      (if adapter
-        (unload! (adapter) db data)
-        (teardown db)))
+    (f/start (:db component) data {:adapter adapter :teardown teardown})
     (-> (assoc component :loaded false)
         (dissoc :setup :teardown :adapter :data))))
 
