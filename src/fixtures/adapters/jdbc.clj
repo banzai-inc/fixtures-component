@@ -21,7 +21,8 @@
     (try
       (unload* spec data) ;; in case the system failed to unload properly on shutdown
       (doseq [[table records] data]
-        (load-table! spec table records))
+        (when (not (empty? records))
+          (load-table! spec table records)))
       (catch Exception e
         (println (.getMessage e)))))
 

@@ -7,6 +7,7 @@
 
 (def db {:spec (-> (user/load-config) :datastore :db-spec)})
 (def data [[:users [{:id 1} {:id 2}]]])
+(def empty-data [[:users []]])
 (def error-data [[:non_existent_table [{:id 1}]]])
 
 (defn clear [spec]
@@ -25,6 +26,11 @@
     (load! adapter db data)
     (unload! adapter db data)
     (= 0 (count (query (:spec db) ["select * from users"])))))
+
+(deftest empty-data-test
+  (let [spec (:spec db)]
+    (clear spec)
+    (is (nil? (load! (jdbc-adapter) db empty-data)))))
 
 (deftest error-test
   (load! (jdbc-adapter) db error-data)
