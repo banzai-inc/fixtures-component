@@ -11,7 +11,7 @@
     (assoc component :loaded true))
 
   (stop [component]
-    (f/start (:db component) data {:adapter adapter :teardown teardown})
+    (f/stop (:db component) data {:adapter adapter :teardown teardown})
     (-> (assoc component :loaded false)
         (dissoc :setup :teardown :adapter :data))))
 

@@ -1,9 +1,9 @@
 (ns fixtures.adapters.jdbc
   (:require [fixtures.protocols :as protocols]
-            [clojure.java.jdbc :refer [insert! delete!]]))
+            [clojure.java.jdbc :refer [insert-multi! delete!]]))
 
 (defn- load-table! [spec table records]
-  (apply (partial insert! spec table) records))
+  (insert-multi! spec table records))
 
 (defn- clear-table! [spec table]
   (delete! spec table []))
