@@ -4,7 +4,7 @@ Clojure library for loading and tearing down fixtures within a [component-based 
 
 ## Lein Installation
 
-`[fixtures-component "0.4.1"]`
+`[fixtures-component "0.4.2"]`
 
 ## Usage
 
