@@ -9,10 +9,13 @@
   (delete! spec table []))
 
 (defn- unload* [spec data]
+  (println "DEBUG" "unload*; before try")
   (try
     (doseq [[table _] (reverse data)]
+      (println "DEBUG" "unload*" table)
       (clear-table! spec table))
     (catch Exception e
+      (println "DEBUG" "unload*" "fail" e)
       (println (.getMessage e)))))
 
 (defrecord JDBCAdapter []
@@ -27,6 +30,7 @@
         (println (.getMessage e)))))
 
   (unload! [_ {:keys [spec]} data]
+    (println "DEBUG" "unload!")
     (unload* spec data)))
 
 (defn jdbc-adapter
